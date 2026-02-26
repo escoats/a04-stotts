@@ -20,20 +20,20 @@ send_message(ProcessID, Msg) -> ProcessID ! Msg.
 serv1() -> 
     receive
         {add, X, Y} -> 
-            io:format("~p + ~p = ~p~n", [X, Y, X+Y]);
+            io:format("(serv1) ~p + ~p = ~p~n", [X, Y, X+Y]);
         {sub, X, Y} ->
-            io:format("~p - ~p = ~p~n", [X, Y, X-Y]);
+            io:format("(serv1) ~p - ~p = ~p~n", [X, Y, X-Y]);
         {mult, X, Y} ->
-            io:format("~p * ~p = ~p~n", [X, Y, X*Y]);
+            io:format("(serv1) ~p * ~p = ~p~n", [X, Y, X*Y]);
         {divide, X, Y} ->
-            io:format("~p / ~p = ~p~n", [X, Y, X/Y]);
+            io:format("(serv1) ~p / ~p = ~p~n", [X, Y, X/Y]);
         {neg, X} ->
-            io:format("-~p = ~p~n", [X, -X]);
+            io:format("(serv1) -~p = ~p~n", [X, -X]);
         {sqrt, X} ->
-            io:format("sqrt(~p) = ~p~n", [X, math:sqrt(X)]);
+            io:format("(serv1) sqrt(~p) = ~p~n", [X, math:sqrt(X)]);
         Message ->
             % todo: send message to serv2
-            io:format("send to serv2")
+            io:format("(serv1) sending ~p to serv2~n", [Message])
     end,
     serv1().
 
