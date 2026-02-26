@@ -15,6 +15,8 @@ start() ->
             start()
     end.
 
+send_message(ProcessID, Msg) -> ProcessID ! Msg.
+
 serv1() -> 
     % todo: implement operations
     receive
@@ -33,4 +35,5 @@ serv1() ->
         Message ->
             io:format("send to serv2")
     end.
+
 
