@@ -1,6 +1,6 @@
 -module(a04).
 -team("Elizabeth Coats, Manasi Chaudhary, Emma Coye").
--export([start/0]).
+-export([start/0, serv1/0]).
 
 
 start() -> 
@@ -18,22 +18,23 @@ start() ->
 send_message(ProcessID, Msg) -> ProcessID ! Msg.
 
 serv1() -> 
-    % todo: implement operations
     receive
         {add, X, Y} -> 
-            io:format("add~n");
+            io:format("~p + ~p = ~p~n", [X, Y, X+Y]);
         {sub, X, Y} ->
-            io:format("subtract~n");
+            io:format("~p - ~p = ~p~n", [X, Y, X-Y]);
         {mult, X, Y} ->
-            io:format("multiply~n");
+            io:format("~p * ~p = ~p~n", [X, Y, X*Y]);
         {divide, X, Y} ->
-            io:format("div~n");
+            io:format("~p / ~p = ~p~n", [X, Y, X/Y]);
         {neg, X} ->
-            io:format("negate~n");
+            io:format("-~p = ~p~n", [X, -X]);
         {sqrt, X} ->
-            io:format("sqrt~n");
+            io:format("sqrt(~p) = ~p~n", [X, math:sqrt(X)]);
         Message ->
+            % todo: send message to serv2
             io:format("send to serv2")
-    end.
+    end,
+    serv1().
 
 
