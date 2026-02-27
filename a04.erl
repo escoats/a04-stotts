@@ -50,7 +50,6 @@ serv1(Serv2Pid) ->
             io:format("(serv1) sqrt(~p) = ~p~n", [X, math:sqrt(X)]),
             serv1(Serv2Pid);
         Message ->
-            % todo: send message to serv2
             io:format("(serv1) sending ~p to serv2~n", [Message]),
             Serv2Pid ! Message,
             serv1(Serv2Pid)
