@@ -17,26 +17,26 @@ start() ->
 
 send_message(ProcessID, Msg) -> ProcessID ! Msg.
 
-serv1(Serv2PID) -> 
+serv1() -> 
     receive
-        {add, X, Y} -> 
+        {'add', X, Y} -> 
             io:format("(serv1) ~p + ~p = ~p~n", [X, Y, X+Y]);
-        {sub, X, Y} ->
+        {'sub', X, Y} ->
             io:format("(serv1) ~p - ~p = ~p~n", [X, Y, X-Y]);
-        {mult, X, Y} ->
+        {'mult', X, Y} ->
             io:format("(serv1) ~p * ~p = ~p~n", [X, Y, X*Y]);
-        {div, X, Y} ->
+        {'div', X, Y} ->
             io:format("(serv1) ~p / ~p = ~p~n", [X, Y, X/Y]);
-        {neg, X} ->
+        {'neg', X} ->
             io:format("(serv1) -~p = ~p~n", [X, -X]);
-        {sqrt, X} ->
+        {'sqrt', X} ->
             io:format("(serv1) sqrt(~p) = ~p~n", [X, math:sqrt(X)]);
         Message ->
             % todo: send message to serv2
             io:format("(serv1) sending ~p to serv2~n", [Message]),
             Serv2PID ! Message
     end,
-    serv1(Serv2PID).
+    serv1().
 
 sum_numbers([]) -> 0;
 sum_numbers([H|T]) when is_number(H) -> H + sum_numbers(T);
@@ -46,7 +46,7 @@ product_numbers([]) -> 1;
 product_numbers([H|T]) when is_number(H) -> H * product_numbers(T);
 product_numbers([_|T]) -> product_numbers(T).
 
-serv2(Serv3PID) ->
+serv2() ->
     receive
         [H|T] when is_integer(H) ->
             Sum = sum_numbers([H|T]),
@@ -58,5 +58,5 @@ serv2(Serv3PID) ->
             io:format("(serv2) sending ~p to serv3~n", [Message]),
             Serv3PID ! Message
     end,
-    serv2(Serv3PID).
+    serv2().
 
