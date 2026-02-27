@@ -72,11 +72,11 @@ serv2(Serv3Pid) ->
             ok;
         [H|T] when is_integer(H) ->
             Sum = sum_numbers([H|T]),
-            io:format("(serv2) ~p~n", [Sum]),
+            io:format("(serv2) sum of ~p = ~p~n", [[H|T], Sum]),
             serv2(Serv3Pid);
         [H|T] when is_float(H) ->
             Product = product_numbers([H|T]),
-            io:format("(serv2) ~p~n", [Product]),
+            io:format("(serv2) product of ~p = ~p~n", [[H|T], Product]),
             serv2(Serv3Pid);
         Message ->
             io:format("(serv2) sending ~p to serv3~n", [Message]),
